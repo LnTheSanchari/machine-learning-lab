@@ -1,18 +1,5 @@
 # %% Import Datasets and libraries
 import numpy as np
-import matplotlib.pyplot as plt
-plt.style.use('ggplot')
-
-# %% Creation of temporary Data.
-# rng = np.random.default_rng(seed=17)
-# X = rng.uniform(0, 1, size=(20, 2))
-# Y = (10*X[::, 0] + 2*X[::, 1]).reshape(-1, 1) + rng.normal(0, 0.1, size=(20, 1)) # Adding some noise to the data.
-
-# %% Check the data shapes.
-# print(X.shape, Y.shape, sep='\n')
-
-
-
 # %% 
 
 class LinearRegression:
@@ -174,10 +161,6 @@ class LinearRegression:
                 f"reg='{self.reg}', lambda_={self.lambda_}, "
                 f"n_features={self.w.shape[0]})")
 
-
-# %%
-w = np.ones((2, 1)) # Initial weight assignment.
-b = 0.3
 
 
 
