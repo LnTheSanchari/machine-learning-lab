@@ -38,7 +38,7 @@ where:
 **Mean Squared Error (MSE)**
 
 $$
-J(W,b) = \frac{1}{m}\sum_{i=1}^{m}(y_i-\hat{y}_i)^2
+J(W,b) = \frac{1}{2m}\sum_{i=1}^{m}(y_i-\hat{y}_i)^2
 $$
 
 **Mean Absolute Error (MAE)**
@@ -52,13 +52,13 @@ $$
 **L1 Regularization**
 
 $$
-J_{\text{L1}} = J(W,b) + \lambda \sum_{j=1}^{n}|w_j|
+J_{\text{L1}} = J(W,b) + \frac{\lambda}{m} \sum_{j=1}^{n}|w_j|
 $$
 
 **L2 Regularization**
 
 $$
-J_{\text{L2}} = J(W,b) + \lambda \sum_{j=1}^{n}w_j^2
+J_{\text{L2}} = J(W,b) + \frac{\lambda}{2m} \sum_{j=1}^{n}w_j^2
 $$
 
 Here, $\lambda$ controls the regularization strength.
@@ -76,7 +76,7 @@ Regularization helps control model complexity and can reduce overfitting.
 Import the implementation into your Python notebook:
 
 ```python
-from LinearRegression import LinearRegression
+from LinearModels import LinearRegression
 ```
 
 Initialize a model by specifying the initial weights and bias:
