@@ -18,35 +18,50 @@ The implementation supports:
   - No Regularization
 - **Gradient-Based Learning:** Learns model parameters using gradient descent.
 - **Configurable Hyperparameters:** Allows customization of learning rate, epochs, and regularization strength.
-
 ## Mathematical Foundation
 
 The linear regression model is defined as:
 
-\[
+$$
 \hat{Y} = XW + b
-\]
+$$
 
 where:
-- \(X\) represents the input feature matrix.
-- \(W\) represents the model weights.
-- \(b\) represents the bias.
-- \(\hat{Y}\) represents the predicted values.
+
+- `X` represents the input feature matrix.
+- `W` represents the model weights.
+- `b` represents the bias.
+- $\hat{Y}$ represents the predicted values.
 
 ### Loss Functions
 
-**Mean Squared Error**
+**Mean Squared Error (MSE)**
 
-\[
+$$
 J(W,b) = \frac{1}{m}\sum_{i=1}^{m}(y_i-\hat{y}_i)^2
-\]
+$$
 
-**Mean Absolute Error**
+**Mean Absolute Error (MAE)**
 
-\[
+$$
 J(W,b) = \frac{1}{m}\sum_{i=1}^{m}|y_i-\hat{y}_i|
-\]
+$$
 
+### Regularization
+
+**L1 Regularization**
+
+$$
+J_{\text{L1}} = J(W,b) + \lambda \sum_{j=1}^{n}|w_j|
+$$
+
+**L2 Regularization**
+
+$$
+J_{\text{L2}} = J(W,b) + \lambda \sum_{j=1}^{n}w_j^2
+$$
+
+Here, $\lambda$ controls the regularization strength.
 ### Regularization
 
 The implementation also explores the effects of regularization on model parameters.
