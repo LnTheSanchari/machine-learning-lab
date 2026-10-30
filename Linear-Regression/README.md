@@ -18,6 +18,7 @@ The implementation supports:
   - No Regularization
 - **Gradient-Based Learning:** Learns model parameters using gradient descent.
 - **Configurable Hyperparameters:** Allows customization of learning rate, epochs, and regularization strength.
+
 ## Mathematical Foundation
 
 The linear regression model is defined as:
@@ -38,7 +39,7 @@ where:
 **Mean Squared Error (MSE)**
 
 $$
-J(W,b) = \frac{1}{m}\sum_{i=1}^{m}(y_i-\hat{y}_i)^2
+J(W,b) = \frac{1}{2m}\sum_{i=1}^{m}(y_i-\hat{y}_i)^2
 $$
 
 **Mean Absolute Error (MAE)**
@@ -49,37 +50,33 @@ $$
 
 ### Regularization
 
+Regularization introduces a penalty term into the objective function to control model complexity.
+
 **L1 Regularization**
 
 $$
-J_{\text{L1}} = J(W,b) + \lambda \sum_{j=1}^{n}|w_j|
+J_{\text{L1}} = J(W,b) + \frac{\lambda}{m} \sum_{j=1}^{n}|w_j|
 $$
 
 **L2 Regularization**
 
 $$
-J_{\text{L2}} = J(W,b) + \lambda \sum_{j=1}^{n}w_j^2
+J_{\text{L2}} = J(W,b) + \frac{\lambda}{2m} \sum_{j=1}^{n}w_j^2
 $$
 
 Here, $\lambda$ controls the regularization strength.
-### Regularization
 
-The implementation also explores the effects of regularization on model parameters.
+## Implementation
 
-- **L1:** Adds a penalty proportional to the absolute values of the weights.
-- **L2:** Adds a penalty proportional to the squared values of the weights.
+The implementation is available in `LinearRegression.py`.
 
-Regularization helps control model complexity and can reduce overfitting.
-
-## Usage
-
-Import the implementation into your Python notebook:
+### Importing the Model
 
 ```python
-from LinearRegression import LinearRegression
+from LinearModels import LinearRegression
 ```
 
-Initialize a model by specifying the initial weights and bias:
+### Initializing the Model
 
 ```python
 model = LinearRegression(
@@ -91,7 +88,7 @@ model = LinearRegression(
 )
 ```
 
-Train the model:
+### Training the Model
 
 ```python
 model.learn(
@@ -102,33 +99,37 @@ model.learn(
 )
 ```
 
-Here:
-- `loss_func`: Selects either `'mse'` or `'mae'`.
-- `reg`: Selects `'l1'`, `'l2'`, or `None`.
-- `lambda_`: Controls regularization strength.
-- `alpha`: Learning rate.
-- `epochs`: Number of training iterations.
+### Parameters
 
-## Experiments
+| Parameter | Description |
+|---|---|
+| `w` | Initial weight parameters |
+| `b` | Initial bias |
+| `loss_func` | Loss function: `'mse'` or `'mae'` |
+| `reg` | Regularization: `'l1'`, `'l2'`, or `None` |
+| `lambda_` | Regularization strength |
+| `alpha` | Learning rate |
+| `epochs` | Number of training iterations |
 
-The implementation is accompanied by Jupyter Notebook experiments exploring:
+## Experimental Results
 
-1. Linear Regression using MSE without regularization.
-2. Linear Regression using MAE without regularization.
-3. Linear Regression using MSE with L1 regularization.
-4. Linear Regression using MAE with L2 regularization.
+The implementation is accompanied by Jupyter Notebook experiments exploring different combinations of loss functions and regularization techniques.
+
+### Comparison of Linear Regression Models
+
+The following experiment compares four configurations:
+
+1. MSE without regularization.
+2. MAE without regularization.
+3. MSE with L1 regularization.
+4. MAE with L2 regularization.
+
+   
+<img width="12000" height="7200" alt="comparision_linear_models" src="https://github.com/user-attachments/assets/097653b4-26da-4a18-8ef3-6e7aef819d6b" />
+
 
 These experiments help visualize how different loss functions and regularization techniques influence the learned regression model.
 
-## Technologies
 
-- Python
-- NumPy
-- Matplotlib
-- Jupyter Notebook
 
----
-
-**Part of my journey into Machine Learning and Deep Learning from first principles.**
-
-Learning mathematics, implementing algorithms, experimenting with models, and developing intuition one step at a time.
+**Learning by understanding, implementing, and experimenting — one model at a time.**
