@@ -1,6 +1,17 @@
-# Linear Regression from Scratch
+# Linear Regression from Scratch📊
 
-This module provides a Python implementation of Linear Regression, built from first principles using NumPy.
+This module provides a Python implementation of Linear Regression, built from first principles using NumPy. 
+
+To understand the whole theory behind the **Linear Regression Model** and 
+1. Simple Reg implementation Using Vectorized function of numpy.
+2. Matrix calculus and Linear Algebra view of **MSE**
+3. Multiple Reg implementation, for both loss functions **MSE and MAE**.
+4. Need of Feature Scaling, with nice contour plots.(**Important**)
+5. How can we express the gradient of **MAE** in vectorized form.
+
+To understand the above, check out this link: [Linear Regression with Feature Scaling in Detail](https://github.com/LnTheSanchari/Linear-Regression-From-Scratch/blob/main/Linear_Regression_From_Scratch.ipynb)
+
+This repo mostly focuses on creating a **LinearRegression** Class and compare the results with **sklearn** linear regression.
 
 The objective is to understand the mathematical foundations of linear regression, optimization, and regularization through implementation and experimentation rather than relying entirely on pre-built machine learning libraries.
 
@@ -111,7 +122,7 @@ model.learn(
 | `alpha` | Learning rate |
 | `epochs` | Number of training iterations |
 
-## Experimental Results
+## Feature Scaling⚡
 
 The implementation is accompanied by Jupyter Notebook experiments exploring **Geometric intuition behind the need of Feature scaling**
 
@@ -121,4 +132,10 @@ To put it simply, the primary reason for feature scaling: **It makes loss surfac
 <img width="12000" height="6000" alt="Max_normalization" src="https://github.com/user-attachments/assets/59eac9bc-b8ed-4e21-b624-0d35df90c7cc" />
 
 
+## Does More Training Helps the model?
+ **It goes with two questions:**
+ 1. **Is it good to train the model for more and more number of epochs? Does it help the model to uncover the patterns that are generalizable to unseen data?**
+ 2. **Does more training makes both validation loss and training loss decrease?**
+
+A nice graph in the notebook answer these two questions for us!!.
 
