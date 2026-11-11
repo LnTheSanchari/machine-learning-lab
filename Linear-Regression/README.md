@@ -113,23 +113,12 @@ model.learn(
 
 ## Experimental Results
 
-The implementation is accompanied by Jupyter Notebook experiments exploring different combinations of loss functions and regularization techniques.
+The implementation is accompanied by Jupyter Notebook experiments exploring **Geometric intuition behind the need of Feature scaling**
 
-### Comparison of Linear Regression Models
-
-The following experiment compares four configurations:
-
-1. MSE without regularization.
-2. MAE without regularization.
-3. MSE with L1 regularization.
-4. MAE with L2 regularization.
-
-   
-<img width="12000" height="7200" alt="comparision_linear_models" src="https://github.com/user-attachments/assets/097653b4-26da-4a18-8ef3-6e7aef819d6b" />
+To put it simply, the primary reason for feature scaling: **It makes loss surface's curvature to be identical in all directions**, which helps the model to learn as quicky as possible( **Learning Rate**).
 
 
-These experiments help visualize how different loss functions and regularization techniques influence the learned regression model.
+<img width="12000" height="6000" alt="Max_normalization" src="https://github.com/user-attachments/assets/59eac9bc-b8ed-4e21-b624-0d35df90c7cc" />
 
 
 
-**Learning by understanding, implementing, and experimenting — one model at a time.**
