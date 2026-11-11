@@ -1,17 +1,22 @@
 # %% Import Datasets and libraries
 import numpy as np
-# %% 
+
+
+# %% LinearRegression Class
+
 
 class LinearRegression:
-    def __init__(self, w, b, *, loss_func='mse', reg=None, lambda_=0.01):
+    def __init__(self, w=None, b=None, *, loss_func='mse', reg=None, lambda_=0.01):
 
         # -------------loss and regularization checks----------------------
         assert loss_func in ['mse', 'mae'], "Loss function should be either 'mse' or 'mae'."
         assert reg in [None, 'l1', 'l2'], "Regularization should be either None, 'l1', or 'l2'."
         # -----------weights and bias checks--------------------------------
-        assert isinstance(w, np.ndarray), 'Weights vectors must be ndarray'
-        assert w.ndim == 2 and w.shape[1] == 1, "w should be a column vector of shape (d, 1)"
-        assert isinstance(b, (int, float)), "b should be a scalar value."
+        if w is not None:
+            assert isinstance(w, np.ndarray), 'Weights vectors must be ndarray'
+            assert w.ndim == 2 and w.shape[1] == 1, "w should be a column vector of shape (d, 1)"
+        if b is not None:
+            assert isinstance(b, (int, float)), "b should be a scalar value."
         # -------------Regularization parameter checks-----------------------
         assert lambda_ >= 0 , "Regularization Strenght must be non-negative"
 
@@ -22,6 +27,7 @@ class LinearRegression:
         self.w = w
         self.b = b
 
+    # ----------------- Prediction ----------------------
     def predict(self, X):
         """
         Generate predictions using the current model parameters.
@@ -49,7 +55,13 @@ class LinearRegression:
         of features in the model.
         
         """
+        # Check if weights are intialized or Not
+        if self.w is None or self.b is None:
+            self.weights_init(n)
+        
         assert X.ndim in [1, 2], "X should be either a row/column vector or a 2D array."
+
+        # Handle single sample cases (1D array or row vector)
         if X.ndim == 1:
             assert X.shape[0] == self.w.shape[0], "The number of features in X should match the number of weights in w."
             return (X.reshape(1, -1) @ self.w + self.b).item()  # Return a scalar value.
@@ -72,6 +84,7 @@ class LinearRegression:
 
         return (X@self.w  + self.b)
 
+    #------------------ Compute Loss-----------------------------------------------
     def compute_loss(self, X, Y):
         """
         Parameters:
@@ -84,9 +97,16 @@ class LinearRegression:
             Compute the specified loss for the given weight assignement.
         
         """
-
-        self.dimension_check(X, Y)
         m, n = X.shape
+
+        # Check if weights are intialized or Not
+        if self.w is None or self.b is None:
+            self.weights_init(n)
+
+        # Dimension Checkings
+        self.dimension_check(X, Y)
+        
+
         loss = 0
 
         if self.loss_func == 'mse':
@@ -105,11 +125,18 @@ class LinearRegression:
             loss_reg = (1/(2*m))*self.lambda_*((self.w**2).sum())
             loss += loss_reg
         return loss
-    
+
+    #------------------ Compute Gradient-----------------------------------------------
 
     def compute_gradient(self, X, Y):
-        self.dimension_check(X, Y)
         m, n = X.shape
+
+        # Checks weights are intialized or Not
+        if self.w is None or self.b is None:
+            self.weights_init(n)
+
+        # Dimension Checks
+        self.dimension_check(X, Y)
 
         if self.loss_func == 'mse':
             diff = (self.predict(X) - Y)
@@ -127,15 +154,20 @@ class LinearRegression:
         return dw, db
 
     def learn(self, X, Y, alpha=0.001, epochs=500):
+        # -----------------Check if weights are intialized or Not-------------------
+        m, n = X.shape
+        if self.w is None or self.b is None:
+            self.weights_init(n)
 
         # --------------Error Checks----------------------------
         self.dimension_check(X, Y)
         assert np.isfinite(alpha) and alpha > 0, 'Learning rate of the model must be positive'
         assert isinstance(epochs, (int, np.integer)) and epochs > 0, 'Epochs must be positive integer'
+        
         # -------------Learning------------------------------------
 
         loss = lambda: self.compute_loss(X, Y)
-        per_step = max(1, int(epochs*0.5))
+        per_step = max(1, int(epochs*0.2))
         loss_hist = []
 
         for epoch_num in range(1, epochs+1):
@@ -143,12 +175,12 @@ class LinearRegression:
             self.w = self.w - alpha*dw
             self.b = self.b - alpha*db
 
-            if epoch_num % per_step == 0:
-                print(f"Epoch: {epoch_num}, Loss: {loss()}")
+            # if epoch_num % per_step == 0:
+            #     print(f"Epoch: {epoch_num}, Loss: {loss()}")
             loss_hist.append(loss())
         return loss_hist
         
-
+    #------------------ Dimension Check-----------------------------------------------
     def dimension_check(self, X, Y):
         assert X.ndim == 2, "X should be a 2D array."
         assert Y.ndim == 2 and Y.shape[1] == 1, "Y should be a column vector of shape (m, 1)"
@@ -156,11 +188,16 @@ class LinearRegression:
         assert n == self.w.shape[0], "The number of features in X should match the number of weights in w."
         assert Y.shape[0] == m, "The number of samples in X and Y should match."
 
+    #--------------------Weights Intialization----------------------------------------
+    def weights_init(self, n_features):
+        if self.w is None:
+            self.w = np.random.randn(n_features, 1)
+        if self.b is None:
+            self.b = np.random.randn()
+
     def __repr__(self):
         return (f"LinearRegression(loss_func='{self.loss_func}', "
                 f"reg='{self.reg}', lambda_={self.lambda_}, "
                 f"n_features={self.w.shape[0]})")
-
-
 
 
